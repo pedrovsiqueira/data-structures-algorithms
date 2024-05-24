@@ -80,7 +80,7 @@ class SingleLinkedList {
 
     if (!this.head) {
       this.head = newNode;
-      this.tail = newNode;
+      this.tail = this.head;
     } else {
       newNode.next = this.head;
       this.head = newNode;
@@ -90,13 +90,111 @@ class SingleLinkedList {
 
     return this;
   }
+  get(index) {
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
+
+    let counter = 0;
+    let current = this.head;
+
+    while (counter !== index) {
+      current = current.next;
+      counter += 1;
+    }
+
+    return current;
+  }
+  set(val, index) {
+    const foundNode = this.get(index);
+
+    if (foundNode) {
+      foundNode.val = val;
+      return true;
+    }
+
+    return false;
+  }
+  insert(val, index) {
+    if (index < 0 || index > this.length) {
+      return false;
+    }
+
+    if (index === 0) {
+      return !!this.unshift(val);
+    }
+
+    if (index === this.length) {
+      return !!this.push(val);
+    }
+
+    const prevNode = this.get(index - 1);
+    const newNode = new Node(val);
+    const tempNext = prevNode.next;
+
+    prevNode.next = newNode;
+    newNode.next = tempNext;
+
+    this.length += 1;
+
+    return true;
+  }
+  remove(index) {
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
+
+    if (index === this.length - 1) {
+      return this.pop();
+    }
+
+    if (index === 0) {
+      return this.shift();
+    }
+
+    const prevNode = this.get(index - 1);
+    const nodeToRemove = prevNode.next;
+
+    prevNode.next = nodeToRemove.next;
+    this.length -= 1;
+
+    return nodeToRemove;
+  }
+  print() {
+    const arr = [];
+    let current = this.head;
+
+    while (current) {
+      arr.push(current.val);
+      current = current.next;
+    }
+    console.log(arr);
+  }
+  reverse() {
+    //swap head and tail.
+    let node = this.head;
+    this.head = this.tail;
+    this.tail = node;
+
+    let next = null;
+    let prev = null;
+
+    for (let i = 0; i < this.length; i++) {
+      next = node.next;
+      node.next = prev;
+      prev = node;
+      node = next;
+    }
+    return this;
+  }
 }
 
 const list = new SingleLinkedList();
 
-list.unshift("Hello");
-console.log(list);
-list.unshift("There");
-console.log(list);
-list.unshift("Mate");
-console.log(list);
+list.push("13");
+list.push("27");
+list.push("32");
+list.push("71");
+list.print();
+list.reverse();
+list.print();
