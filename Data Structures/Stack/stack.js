@@ -9,7 +9,7 @@ class Stack {
   constructor() {
     this.first = null;
     this.last = null;
-    this.size = 0;
+    this.length = 0;
   }
   push(val) {
     const node = new Node(val);
@@ -23,7 +23,7 @@ class Stack {
       this.first.next = temp;
     }
 
-    return (this.size += 1);
+    return (this.length += 1);
   }
   pop() {
     if (this.length === 0) {
@@ -37,9 +37,18 @@ class Stack {
     }
 
     this.first = temp.next;
-    this.size -= 1;
+    this.length -= 1;
 
     return temp.val;
+  }
+  top() {
+    return this.first;
+  }
+  isEmpty() {
+    return !this.length;
+  }
+  size() {
+    return this.length;
   }
 }
 
@@ -48,8 +57,6 @@ const stack = new Stack();
 stack.push(12);
 stack.push(14);
 stack.push(15);
-console.log(stack);
-stack.pop();
-stack.pop();
-stack.pop();
-console.log(stack);
+console.log(stack.top());
+console.log(stack.isEmpty());
+console.log(stack.size());
