@@ -60,8 +60,6 @@ class HashTable {
   set(key, value) {
     const index = this._hash(key);
 
-    const existingKey = this.get(key);
-
     if (!this.keyMap[index]) {
       this.keyMap[index] = [];
     }
