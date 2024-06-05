@@ -1,5 +1,7 @@
-const argumentsLength = function (...args) {
-  console.log(args[0].length);
-};
+/**
+ * @param {...(null|boolean|number|string|Array|Object)} args
+ * @return {number}
+ */
+const argumentsLength = (...args) => args.length;
 
-argumentsLength(1);
+argumentsLength(1, 2, 3); // 3
